@@ -1,5 +1,7 @@
 package com.omf.restaurant.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -19,6 +21,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @ToString
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class MenuItem {
 
 	@Id
@@ -35,6 +38,6 @@ public class MenuItem {
 	private String description;
 	
 	@Positive(message = "Item price must be greater than zero")
-	private Long price;
+	private Double price;
 
 }

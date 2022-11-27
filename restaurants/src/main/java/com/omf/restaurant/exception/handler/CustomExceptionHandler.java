@@ -1,5 +1,6 @@
 package com.omf.restaurant.exception.handler;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,12 +17,15 @@ import com.omf.restaurant.exception.CustomException;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import lombok.extern.slf4j.Slf4j;
 
 @ControllerAdvice
+@Slf4j
 public class CustomExceptionHandler {
 
 	@ExceptionHandler(CustomException.class)
 	public ResponseEntity<Map<String, Object>> handleCustomException(CustomException exp) {
+		log.warn("Custom exception thrown, {}", exp.getMessage());
 		Map<String, Object> errorResponse = new HashMap<>();
 		errorResponse.put("message", exp.getMessage());
 		errorResponse.put("status", exp.getStatusCode());
@@ -38,6 +42,7 @@ public class CustomExceptionHandler {
 	        String errorMessage = error.getDefaultMessage();
 	        errors.put(fieldName, errorMessage);
 	    });
+		log.error("Invalid data received, {}", errors);
 		errorResponse.put("message", "Invalid request");
 		errorResponse.put("status", 400);
 		errorResponse.put("time", Instant.now().toString());
@@ -57,7 +62,18 @@ public class CustomExceptionHandler {
 		errorResponse.put("status", 400);
 		errorResponse.put("time", Instant.now().toString());
 		errorResponse.put("fields", errors);
+		log.error("Invalid data received, {}", errors);
 		return ResponseEntity.status(400).body(errorResponse);
 	}
 
+	@ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+	public ResponseEntity<Map<String, Object>> handleSQLException(SQLIntegrityConstraintViolationException exp) {
+		Map<String, Object> errorResponse = new HashMap<>();
+		errorResponse.put("message", "Invalid SQL syntax");
+		errorResponse.put("status", 500);
+		errorResponse.put("time", Instant.now().toString());
+		log.error("Invalid SQL syntax, {}", exp.getMessage());
+		return ResponseEntity.status(500).body(errorResponse);
+	}
+	
 }

@@ -48,8 +48,5 @@ public class Restaurant {
 	private String cuisine;
 
 	private String pincode;
-
-	@Column(name = "average_price")
-	private Long averagePrice;
 	
 }
