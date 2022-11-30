@@ -1,5 +1,8 @@
 package com.omf.restaurant.entity;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import jakarta.persistence.Column;
@@ -15,12 +18,14 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@Table(name = "menu")
+@Table(name = "t_menu")
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
 @Builder
 @ToString
+@DynamicInsert
+@DynamicUpdate
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MenuItem {
 

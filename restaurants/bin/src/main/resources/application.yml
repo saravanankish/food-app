@@ -7,7 +7,3 @@ spring:
     password: password
     username: root
     driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    hibernate:
-      ddl-auto: none
-   

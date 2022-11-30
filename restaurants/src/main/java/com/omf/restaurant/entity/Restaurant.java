@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@Table(name = "restaurants")
+@Table(name = "t_restaurants")
 @ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor

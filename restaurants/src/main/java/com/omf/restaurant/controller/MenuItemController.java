@@ -16,8 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.omf.restaurant.entity.ItemResponse;
 import com.omf.restaurant.entity.MenuItem;
-import com.omf.restaurant.service.CrudService;
+import com.omf.restaurant.service.impl.MenuItemService;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 public class MenuItemController {
 
 	@Autowired
-	private CrudService<MenuItem> menuService;
+	private MenuItemService menuService;
 
 	@GetMapping
 	public ResponseEntity<List<MenuItem>> getAllMenuItem() {
@@ -51,6 +52,11 @@ public class MenuItemController {
 		return ResponseEntity.ok(menuService.getAll(query));
 	}
 
+	@PostMapping("/items")
+	public ResponseEntity<List<ItemResponse>> getItemsPresent(@RequestBody List<String> itemIds) {
+		return ResponseEntity.ok(menuService.getItems(itemIds));
+	}
+	
 	@PostMapping
 	public ResponseEntity<String> addMenuItem(@RequestBody @Valid MenuItem menuItem) {
 		log.info("REQUEST: create menu item data: {}", menuItem);

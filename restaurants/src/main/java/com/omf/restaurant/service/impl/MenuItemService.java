@@ -1,12 +1,15 @@
 package com.omf.restaurant.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.omf.restaurant.entity.ItemResponse;
 import com.omf.restaurant.entity.MenuItem;
 import com.omf.restaurant.exception.CustomException;
 import com.omf.restaurant.repository.MenuItemRepository;
@@ -74,6 +77,23 @@ public class MenuItemService implements CrudService<MenuItem> {
 		}
 		log.info("Deleted restaurant with id {}", id);
 		menuRepo.deleteById(id);
+	}
+
+	public List<ItemResponse> getItems(List<String> itemIds) {
+		List<ItemResponse> itemResponse = new ArrayList<ItemResponse>();
+
+		itemIds.forEach(itemId -> {
+			ItemResponse item = new ItemResponse();
+			Optional<MenuItem> menuItemOpt = menuRepo.findById(itemId);
+			item.setExists(menuItemOpt.isPresent());
+			item.setItemId(itemId);
+			if (menuItemOpt.isPresent()) {
+				item.setPrice(menuItemOpt.get().getPrice());
+			}
+			itemResponse.add(item);
+		});
+
+		return itemResponse;
 	}
 
 }
