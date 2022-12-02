@@ -10,6 +10,8 @@ import java.util.TreeMap;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -18,12 +20,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.omf.orders.exception.CustomException;
 
-import lombok.extern.slf4j.Slf4j;
-
 @ControllerAdvice
-@Slf4j
 public class CustomExceptionHandler {
 
+	public final Logger log = LoggerFactory.getLogger(CustomExceptionHandler.class);
+	
 	@ExceptionHandler(CustomException.class)
 	public ResponseEntity<Map<String, Object>> handleCustomException(CustomException exp) {
 		log.warn("Custom exception thrown, {}", exp.getMessage());

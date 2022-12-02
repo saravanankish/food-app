@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +16,10 @@ import com.omf.restaurant.repository.RestaurantRepository;
 import com.omf.restaurant.service.CrudService;
 import com.omf.restaurant.utils.RestaurantUtils;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Service
-@Slf4j
 public class RestaurantService implements CrudService<Restaurant> {
+
+	public final Logger log = LoggerFactory.getLogger(RestaurantService.class);
 
 	@Autowired
 	private RestaurantRepository restaurantRepo;

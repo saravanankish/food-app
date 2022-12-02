@@ -18,17 +18,8 @@ import org.hibernate.annotations.DynamicUpdate;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.omf.orders.model.OrderStatus;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 @Entity
 @Table(name = "t_orders")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @DynamicInsert
 @DynamicUpdate
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -45,5 +36,52 @@ public class Order {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "order_id")
 	private List<@Valid OrderLineItem> orderLineItems;
+
+	public Order() {
+		super();
+	}
+
+	public Order(String orderId, Double totalPrice, OrderStatus orderStatus,
+			List<@Valid OrderLineItem> orderLineItems) {
+		super();
+		this.orderId = orderId;
+		this.totalPrice = totalPrice;
+		this.orderStatus = orderStatus;
+		this.orderLineItems = orderLineItems;
+	}
+
+	public String getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
+
+	public Double getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(Double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public OrderStatus getOrderStatus() {
+		return orderStatus;
+	}
+
+	public void setOrderStatus(OrderStatus orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+
+	public List<OrderLineItem> getOrderLineItems() {
+		return orderLineItems;
+	}
+
+	public void setOrderLineItems(List<OrderLineItem> orderLineItems) {
+		this.orderLineItems = orderLineItems;
+	}
+	
+	
 
 }

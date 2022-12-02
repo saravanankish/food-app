@@ -7,6 +7,8 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -18,11 +20,10 @@ import com.omf.orders.model.ItemResponse;
 import com.omf.orders.model.OrderStatus;
 import com.omf.orders.repository.OrderRepository;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Service
-@Slf4j
 public class OrderService {
+	
+	public final Logger log = LoggerFactory.getLogger(OrderService.class);
 
 	@Autowired
 	private OrderRepository orderRepository;

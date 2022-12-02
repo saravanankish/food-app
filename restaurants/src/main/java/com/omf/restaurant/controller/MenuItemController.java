@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -22,14 +24,13 @@ import com.omf.restaurant.entity.ItemResponse;
 import com.omf.restaurant.entity.MenuItem;
 import com.omf.restaurant.service.impl.MenuItemService;
 
-import lombok.extern.slf4j.Slf4j;
-
 @RestController
 @RequestMapping("/menu")
 @Validated
-@Slf4j
 public class MenuItemController {
 
+	private final Logger log = LoggerFactory.getLogger(MenuItemController.class);
+	
 	@Autowired
 	private MenuItemService menuService;
 
