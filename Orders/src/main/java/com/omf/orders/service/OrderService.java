@@ -65,7 +65,7 @@ public class OrderService {
 				.collect(Collectors.toMap(OrderLineItem::getItemId, OrderLineItem::getQuantity));
 
 		try {
-			ItemResponse[] itemResponse = restTemplate.postForObject("http://localhost:8081/menu/items",
+			ItemResponse[] itemResponse = restTemplate.postForObject("lb://RESTAURANTS/menu/items",
 					itemIds.keySet(), ItemResponse[].class);
 			boolean allItemsExists = Arrays.stream(itemResponse).allMatch(ItemResponse::isExists);
 

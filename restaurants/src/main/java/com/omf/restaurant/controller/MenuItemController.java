@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -20,7 +22,6 @@ import com.omf.restaurant.entity.ItemResponse;
 import com.omf.restaurant.entity.MenuItem;
 import com.omf.restaurant.service.impl.MenuItemService;
 
-import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -54,6 +55,7 @@ public class MenuItemController {
 
 	@PostMapping("/items")
 	public ResponseEntity<List<ItemResponse>> getItemsPresent(@RequestBody List<String> itemIds) {
+		log.info("REQUEST: check items exists {}", itemIds);
 		return ResponseEntity.ok(menuService.getItems(itemIds));
 	}
 	
